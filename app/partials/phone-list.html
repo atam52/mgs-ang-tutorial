@@ -9,19 +9,37 @@
         <option value="name">Alphabetical</option>
         <option value="age">Newest</option>
       </select>
-
+	  
+	  <button ng-click="listRefresh()">Refresh list (restore array)</button>
+	  <button ng-click="initHidden()">Unhide all</button>
+	  
+	  <form>
+	      <input type="text" placeholder="Phone Name" ng-model="phoneToAdd.name"></input>
+		  <input type="text" placeholder="Phone Description" ng-model="phoneToAdd.snippet"></input>
+		  <input type="text" placeholder="Internal ID" ng-model="phoneToAdd.id"></input>
+		  <button ng-click="addPhone()">Add Phone</button>
+	  </form>
     </div>
     <div class="span10">
       <!--Body content-->
 
+	  <!--
       <ul class="phones">
-        <li ng-repeat="phone in phones | filter:query | orderBy:orderProp"
-            class="thumbnail phone-listing">
-          <a href="#/phones/{{phone.id}}" class="thumb"><img ng-src="{{phone.imageUrl}}"></a>
-          <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
-          <p>{{phone.snippet}}</p>
+        <li ng-repeat="phone in phones track by $id($index) | filter:query | orderBy:orderProp"
+            class="thumbnail phone-listing" ng-hide="phone.hidden">
+		  <div>
+              <a href="#/phones/{{phone.id}}" class="thumb"><img ng-src="{{phone.imageUrl}}"></a>
+              <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
+              <p>{{phone.snippet}}</p>
+		      <p>Internal ID: {{phone.id}}</p>
+		      
+		      <button ng-click="hidePhone(phone.id)">Hide (delete from array)</button>
+			  <button ng-click="ngHidePhone(phone.id)">Hide (with ng-hide)</button>
+		  </div>
         </li>
       </ul>
+	  -->
+	  <display-phone-list data="phones"></display-phone-list>
 
     </div>
   </div>
